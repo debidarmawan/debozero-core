@@ -19,3 +19,17 @@
 
 # Go workspace file
 go.work
+
+# macOS
+**/.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# Dev build
+build/
+tmp/
+
+# Environment variables
+.env
