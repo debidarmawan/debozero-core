@@ -28,3 +28,18 @@ func (q *BookQueries) GetBooks() ([]models.Book, error) {
 	// Return query result
 	return books, err
 }
+
+// CreateBook method for creating book by given Book object
+func (q *BookQueries) CreateBook(b *models.Book) error {
+	// Define query string
+	query := `INSERT INTO books VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
+
+	// Send query to database
+	_, err := q.Exec(query, b.ID, b.CreatedAt, b.UpdatedAt, b.UserID, b.Title, b.Author, b.BookStatus, b.BookAttrs)
+	if err != nil {
+		// Return error
+		return err
+	}
+
+	return nil
+}
