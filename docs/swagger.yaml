@@ -1,0 +1,114 @@
+basePath: /api
+definitions:
+  models.Book:
+    properties:
+      author:
+        maxLength: 255
+        type: string
+      book_attrs:
+        $ref: '#/definitions/models.BookAttrs'
+      book_status:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: string
+      title:
+        maxLength: 255
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: string
+    required:
+    - author
+    - book_attrs
+    - book_status
+    - id
+    - title
+    - user_id
+    type: object
+  models.BookAttrs:
+    properties:
+      description:
+        type: string
+      picture:
+        type: string
+      rating:
+        maximum: 10
+        minimum: 1
+        type: integer
+    type: object
+info:
+  contact:
+    email: debidarmawan1998@gmail.com
+    name: Debi Darmawan
+  description: API Docs of DeboZero Core API Service
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: DeboZero Core API
+  version: "1.0"
+paths:
+  /v1/book:
+    post:
+      consumes:
+      - application/json
+      description: Create a new book.
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.Book'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Book'
+      security:
+      - ApiKeyAuth: []
+      summary: create a new book
+      tags:
+      - Book
+  /v1/books:
+    get:
+      consumes:
+      - application/json
+      description: Get all exists books.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Book'
+            type: array
+      summary: get all exists books
+      tags:
+      - Books
+  /v1/token/new:
+    get:
+      consumes:
+      - application/json
+      description: Create a new access token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: create a new access token
+      tags:
+      - Auth
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
