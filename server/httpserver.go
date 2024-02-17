@@ -11,7 +11,7 @@ import (
 	"gorm.io/gorm"
 )
 
-const DefaultPort = 1545
+const DefaultPort = 3598
 
 func ServeHTTP(db *gorm.DB) {
 	f := fiber.New()
