@@ -8,11 +8,19 @@ import (
 	"github.com/debidarmawan/debozero-core/repository"
 	"github.com/debidarmawan/debozero-core/usecase"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"gorm.io/gorm"
 )
 
 func Routes(f *fiber.App, db *gorm.DB) {
+	f.Use(cors.New())
+	f.Use(cors.New(cors.Config{
+		AllowOriginsFunc: func(origin string) bool {
+			return true
+		},
+	}))
+
 	baseRoute := "/api/v1"
 
 	routerGroup := f.Group(baseRoute)
