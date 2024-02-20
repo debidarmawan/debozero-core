@@ -31,5 +31,7 @@ func ConnectDatabase(maxOpenConnection int) *gorm.DB {
 
 	sqlDB.SetMaxOpenConns(maxOpenConnection)
 
+	migrate(db)
+
 	return db
 }

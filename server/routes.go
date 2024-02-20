@@ -78,13 +78,20 @@ func Routes(f *fiber.App, db *gorm.DB) {
 
 	// INIT REPOSITORY
 	userRepo := repository.NewUserRepo(db)
+	oauth2ClientRepo := repository.NewOauth2ClientRepository(db)
 
 	// INIT USECASE
 	userUseCase := usecase.NewUserUseCase(txManager, userRepo)
+	oauth2UseCase := usecase.NewOauth2UseCase(db, oauth2ClientRepo)
+	authUseCase := usecase.NewAuthUseCase(txManager, userRepo, oauth2UseCase)
 
 	// INIT HANDLER
 	userHandler := handler.NewUserHanler(userUseCase)
+	authHandler := handler.NewAuthHandler(authUseCase)
+	oauth2Handler := handler.NewOauth2Handler(oauth2UseCase)
 
 	// ROUTING HANDLER
 	userHandler.Routes(routerGroup)
+	authHandler.Routes(routerGroup)
+	oauth2Handler.Routes(routerGroup)
 }

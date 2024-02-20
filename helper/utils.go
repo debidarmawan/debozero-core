@@ -1,5 +1,10 @@
 package helper
 
+import (
+	"math/rand"
+	"time"
+)
+
 func ContainsString(arr []string, item string) bool {
 	for _, a := range arr {
 		if a == item {
@@ -8,4 +13,16 @@ func ContainsString(arr []string, item string) bool {
 	}
 
 	return false
+}
+
+func GenerateRandomString(length int) string {
+	charset := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+	randomizer := rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
+	b := make([]rune, length)
+
+	for i := range b {
+		b[i] = charset[randomizer.Intn(len(charset))]
+	}
+
+	return string(b)
 }
