@@ -1,0 +1,38 @@
+package handler
+
+import (
+	"github.com/debidarmawan/debozero-core/dto"
+	"github.com/debidarmawan/debozero-core/global"
+	"github.com/debidarmawan/debozero-core/helper"
+	"github.com/debidarmawan/debozero-core/usecase"
+	"github.com/gofiber/fiber/v2"
+)
+
+type Oauth2ClientHandler struct {
+	oauth2UseCase usecase.Oauth2UseCase
+}
+
+func NewOauth2Handler(oauth2UseCase usecase.Oauth2UseCase) *Oauth2ClientHandler {
+	return &Oauth2ClientHandler{
+		oauth2UseCase: oauth2UseCase,
+	}
+}
+
+func (oh *Oauth2ClientHandler) Routes(group fiber.Router) {
+	group.Post("oauth2/create-client", oh.CreateClient)
+}
+
+func (oh *Oauth2ClientHandler) CreateClient(c *fiber.Ctx) error {
+	var request dto.Oauth2Client
+
+	if err := helper.ValidateBody(c, &request); err != nil {
+		return err.ToResponse(c)
+	}
+
+	result, err := oh.oauth2UseCase.AddClient(request)
+	if err != nil {
+		return err.ToResponse(c)
+	}
+
+	return global.CreateResponse(result, fiber.StatusOK, c)
+}
