@@ -3,6 +3,7 @@ package usecase
 import (
 	"context"
 	"log"
+	"net/http"
 	"strconv"
 	"time"
 
@@ -25,6 +26,7 @@ import (
 type Oauth2UseCase interface {
 	GenerateToken(userId string, scope string) (*dto.TokenInfo, error)
 	AddClient(request dto.Oauth2Client) (*dto.Oauth2ClientResponse, global.ErrorResponse)
+	RemoveToken(request *http.Request) error
 }
 
 type oauth2UseCase struct {
@@ -141,4 +143,25 @@ func (ou *oauth2UseCase) AddClient(request dto.Oauth2Client) (*dto.Oauth2ClientR
 	}
 
 	return &reuslt, nil
+}
+
+func (ou *oauth2UseCase) RemoveToken(request *http.Request) error {
+	ctx := context.Background()
+
+	tokenInfo, err := ou.server.ValidationBearerToken(request)
+	if err != nil {
+		return err
+	}
+
+	err = ou.manager.RemoveAccessToken(ctx, tokenInfo.GetAccess())
+	if err != nil {
+		return err
+	}
+
+	err = ou.manager.RemoveRefreshToken(ctx, tokenInfo.GetRefresh())
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

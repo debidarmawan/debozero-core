@@ -10,6 +10,7 @@ import (
 
 type AuthUseCase interface {
 	Login(request dto.Login) (*dto.LoginResponse, global.ErrorResponse)
+	Logout(request dto.Logout) global.ErrorResponse
 }
 
 type authUseCase struct {
@@ -62,4 +63,13 @@ func (au *authUseCase) Login(request dto.Login) (*dto.LoginResponse, global.Erro
 	}
 
 	return &loginResponse, nil
+}
+
+func (au *authUseCase) Logout(request dto.Logout) global.ErrorResponse {
+	err := au.oauth2UseCase.RemoveToken(request.Request)
+	if err != nil {
+		return global.InternalServerError(err)
+	}
+
+	return nil
 }
