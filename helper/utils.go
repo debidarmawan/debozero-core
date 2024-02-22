@@ -26,3 +26,13 @@ func GenerateRandomString(length int) string {
 
 	return string(b)
 }
+
+func Contains[T string | int](arr []T, item T) bool {
+	for _, i := range arr {
+		if i == item {
+			return true
+		}
+	}
+
+	return false
+}

@@ -29,3 +29,23 @@ type TokenInfo struct {
 type Logout struct {
 	Request *http.Request
 }
+
+type Verify struct {
+	Request *http.Request
+	Path    string
+	Method  string
+}
+
+type VerifyHeader struct {
+	Path   string `reqHeader:"X-Path" validate:"required"`
+	Method string `reqHeader:"X-Path" validate:"required"`
+}
+
+type VerifyResult struct {
+	UserId string
+	Scope  string
+}
+
+type VerifyResponse struct {
+	UserId string `json:"user_id"`
+}

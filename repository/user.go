@@ -7,21 +7,22 @@ import (
 	"gorm.io/gorm"
 )
 
-type UserRepo interface {
+type UserRepository interface {
 	GetUserByEmail(email string) (*model.User, global.ErrorResponse)
 	GetUserByUsername(username string) (*model.User, global.ErrorResponse)
 	CreateUser(tx helper.Tx, user *model.User) (*model.User, global.ErrorResponse)
+	GetUserById(id string) (*model.User, global.ErrorResponse)
 }
 
-type userRepo struct {
+type userRepository struct {
 	db *gorm.DB
 }
 
-func NewUserRepo(db *gorm.DB) UserRepo {
-	return &userRepo{db: db}
+func NewUserRepository(db *gorm.DB) UserRepository {
+	return &userRepository{db: db}
 }
 
-func (ur *userRepo) GetUserByEmail(email string) (*model.User, global.ErrorResponse) {
+func (ur *userRepository) GetUserByEmail(email string) (*model.User, global.ErrorResponse) {
 	var user model.User
 
 	err := ur.db.First(&user, "email = ?", email).Error
@@ -32,7 +33,7 @@ func (ur *userRepo) GetUserByEmail(email string) (*model.User, global.ErrorRespo
 	return &user, nil
 }
 
-func (ur *userRepo) GetUserByUsername(username string) (*model.User, global.ErrorResponse) {
+func (ur *userRepository) GetUserByUsername(username string) (*model.User, global.ErrorResponse) {
 	var user model.User
 
 	err := ur.db.First(&user, "username = ?", username).Error
@@ -43,7 +44,7 @@ func (ur *userRepo) GetUserByUsername(username string) (*model.User, global.Erro
 	return &user, nil
 }
 
-func (ur *userRepo) CreateUser(tx helper.Tx, user *model.User) (*model.User, global.ErrorResponse) {
+func (ur *userRepository) CreateUser(tx helper.Tx, user *model.User) (*model.User, global.ErrorResponse) {
 	db := ur.db
 
 	if tx != nil {
@@ -56,4 +57,15 @@ func (ur *userRepo) CreateUser(tx helper.Tx, user *model.User) (*model.User, glo
 	}
 
 	return user, nil
+}
+
+func (ur *userRepository) GetUserById(id string) (*model.User, global.ErrorResponse) {
+	var user model.User
+
+	err := ur.db.First(&user, "id = ?", id).Error
+	if err != nil {
+		return nil, global.NotFoundError()
+	}
+
+	return &user, nil
 }

@@ -12,6 +12,8 @@ func migrate(db *gorm.DB) {
 		&model.User{},
 		&model.Role{},
 		&model.Oauth2Client{},
+		&model.RoleKey{},
+		&model.RoleKeyMapping{},
 	)
 
 	if err != nil {

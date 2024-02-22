@@ -14,12 +14,12 @@ type UserUseCase interface {
 
 type userUseCase struct {
 	txManager helper.TxManager
-	userRepo  repository.UserRepo
+	userRepo  repository.UserRepository
 }
 
 func NewUserUseCase(
 	txManager helper.TxManager,
-	userRepo repository.UserRepo,
+	userRepo repository.UserRepository,
 ) UserUseCase {
 	return &userUseCase{
 		txManager: txManager,

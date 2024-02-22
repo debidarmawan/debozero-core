@@ -27,6 +27,7 @@ type Oauth2UseCase interface {
 	GenerateToken(userId string, scope string) (*dto.TokenInfo, error)
 	AddClient(request dto.Oauth2Client) (*dto.Oauth2ClientResponse, global.ErrorResponse)
 	RemoveToken(request *http.Request) error
+	Verify(request *http.Request) (*dto.VerifyResult, error)
 }
 
 type oauth2UseCase struct {
@@ -164,4 +165,18 @@ func (ou *oauth2UseCase) RemoveToken(request *http.Request) error {
 	}
 
 	return nil
+}
+
+func (ou *oauth2UseCase) Verify(request *http.Request) (*dto.VerifyResult, error) {
+	token, err := ou.server.ValidationBearerToken(request)
+	if err != nil {
+		return nil, err
+	}
+
+	result := dto.VerifyResult{
+		UserId: token.GetUserID(),
+		Scope:  token.GetScope(),
+	}
+
+	return &result, nil
 }

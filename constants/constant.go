@@ -14,4 +14,6 @@ const (
 
 	ClientId  = "INTERNAL_CLIENT_ID"
 	SecretKey = "INTERNAL_SECRET_KEY"
+
+	SuperuserScope = "SUPERUSER"
 )
