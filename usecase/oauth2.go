@@ -28,6 +28,7 @@ type Oauth2UseCase interface {
 	AddClient(request dto.Oauth2Client) (*dto.Oauth2ClientResponse, global.ErrorResponse)
 	RemoveToken(request *http.Request) error
 	Verify(request *http.Request) (*dto.VerifyResult, error)
+	RefreshToken(refreshToken string) (*dto.TokenInfo, error)
 }
 
 type oauth2UseCase struct {
@@ -179,4 +180,29 @@ func (ou *oauth2UseCase) Verify(request *http.Request) (*dto.VerifyResult, error
 	}
 
 	return &result, nil
+}
+
+func (or *oauth2UseCase) RefreshToken(refreshToken string) (*dto.TokenInfo, error) {
+	ctx := context.Background()
+
+	refreshtokenData, err := or.manager.LoadRefreshToken(ctx, refreshToken)
+	if err != nil {
+		return nil, err
+	}
+
+	tgr := oauth2.TokenGenerateRequest{
+		ClientID: refreshtokenData.GetClientID(),
+		Refresh:  refreshToken,
+	}
+	ti, err := or.manager.RefreshAccessToken(ctx, &tgr)
+	if err != nil {
+		return nil, err
+	}
+	tokenInfo := dto.TokenInfo{
+		AccessToken:  ti.GetAccess(),
+		ExpiresAt:    time.Now().Add(ti.GetAccessExpiresIn()),
+		RefreshToken: ti.GetRefresh(),
+	}
+
+	return &tokenInfo, nil
 }

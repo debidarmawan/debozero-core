@@ -23,6 +23,7 @@ func (ah *AuthHandler) Routes(group fiber.Router) {
 	group.Post("/auth/login", ah.Login)
 	group.Post("/auth/logout", ah.Logout)
 	group.Get("/auth/verify", ah.Verify)
+	group.Post("/auth/refresh", ah.Refresh)
 }
 
 func (ah *AuthHandler) Login(c *fiber.Ctx) error {
@@ -54,19 +55,19 @@ func (ah *AuthHandler) Logout(c *fiber.Ctx) error {
 }
 
 func (ah *AuthHandler) Verify(c *fiber.Ctx) error {
-	var header dto.VerifyHeader
+	// var header dto.VerifyHeader
 
-	if err := helper.ValidateHeader(c, &header); err != nil {
-		return err.ToResponse(c)
-	}
+	// if err := helper.ValidateHeader(c, &header); err != nil {
+	// 	return err.ToResponse(c)
+	// }
 
 	var httpRequest http.Request
 	fasthttpadaptor.ConvertRequest(c.Context(), &httpRequest, false)
 
 	request := dto.Verify{
 		Request: &httpRequest,
-		Path:    header.Path,
-		Method:  header.Method,
+		// Path:    header.Path,
+		// Method:  header.Method,
 	}
 
 	result, err := ah.authUseCase.Verify(request)
@@ -76,4 +77,20 @@ func (ah *AuthHandler) Verify(c *fiber.Ctx) error {
 	}
 
 	return global.CreateResponse(result, fiber.StatusOK, c)
+}
+
+func (ah *AuthHandler) Refresh(c *fiber.Ctx) error {
+	var body dto.RefreshTokenRequest
+	if err := helper.ValidateBody(c, &body); err != nil {
+		return err.ToResponse(c)
+	}
+
+	spec := dto.RefreshTokenSpec(body)
+	result, err := ah.authUseCase.RefreshToken(spec)
+
+	if err != nil {
+		return err.ToResponse(c)
+	}
+
+	return global.CreateResponse(result, http.StatusOK, c)
 }

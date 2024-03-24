@@ -38,7 +38,7 @@ type Verify struct {
 
 type VerifyHeader struct {
 	Path   string `reqHeader:"X-Path" validate:"required"`
-	Method string `reqHeader:"X-Path" validate:"required"`
+	Method string `reqHeader:"X-Method" validate:"required"`
 }
 
 type VerifyResult struct {
@@ -48,4 +48,18 @@ type VerifyResult struct {
 
 type VerifyResponse struct {
 	UserId string `json:"user_id"`
+}
+
+type RefreshTokenRequest struct {
+	RefreshToken string `json:"refresh_token" validate:"required"`
+}
+
+type RefreshTokenSpec struct {
+	RefreshToken string
+}
+
+type RefreshTokenResponse struct {
+	AccessToken  string    `json:"access_token"`
+	ExpiresAt    time.Time `json:"expires_at"`
+	RefreshToken string    `json:"refresh_token"`
 }

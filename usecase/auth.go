@@ -1,7 +1,6 @@
 package usecase
 
 import (
-	"github.com/debidarmawan/debozero-core/constants"
 	"github.com/debidarmawan/debozero-core/dto"
 	"github.com/debidarmawan/debozero-core/global"
 	"github.com/debidarmawan/debozero-core/helper"
@@ -13,6 +12,7 @@ type AuthUseCase interface {
 	Login(request dto.Login) (*dto.LoginResponse, global.ErrorResponse)
 	Logout(request dto.Logout) global.ErrorResponse
 	Verify(request dto.Verify) (*dto.VerifyResponse, global.ErrorResponse)
+	RefreshToken(spec dto.RefreshTokenSpec) (*dto.RefreshTokenResponse, global.ErrorResponse)
 }
 
 type authUseCase struct {
@@ -94,14 +94,14 @@ func (au *authUseCase) Verify(request dto.Verify) (*dto.VerifyResponse, global.E
 		return nil, global.BadRequestError("Your account is not active")
 	}
 
-	canAccess, path := au.roleUseCase.CanAccess(user.RoleId, request.Path, request.Method)
-	if !canAccess {
-		return nil, global.ForbiddenError()
-	}
+	// canAccess, path := au.roleUseCase.CanAccess(user.RoleId, request.Path, request.Method)
+	// if !canAccess {
+	// 	return nil, global.ForbiddenError()
+	// }
 
-	if verification.Scope == constants.SuperuserScope && helper.Contains(constants.SuperuserForbiddenEndpoints, request.Method+" "+path) {
-		return nil, global.ForbiddenError()
-	}
+	// if verification.Scope == constants.SuperuserScope && helper.Contains(constants.SuperuserForbiddenEndpoints, request.Method+" "+path) {
+	// 	return nil, global.ForbiddenError()
+	// }
 
 	response := au.getVerifyResponse(user)
 
@@ -114,4 +114,14 @@ func (au *authUseCase) getVerifyResponse(user *model.User) dto.VerifyResponse {
 	}
 
 	return response
+}
+
+func (au *authUseCase) RefreshToken(spec dto.RefreshTokenSpec) (*dto.RefreshTokenResponse, global.ErrorResponse) {
+	tokenInfo, err := au.oauth2UseCase.RefreshToken(spec.RefreshToken)
+	if err != nil {
+		return nil, global.BadRequestError("Invalid token")
+	}
+
+	result := dto.RefreshTokenResponse(*tokenInfo)
+	return &result, nil
 }

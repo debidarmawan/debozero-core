@@ -19,7 +19,7 @@ func NewOauth2Handler(oauth2UseCase usecase.Oauth2UseCase) *Oauth2ClientHandler 
 }
 
 func (oh *Oauth2ClientHandler) Routes(group fiber.Router) {
-	group.Post("oauth2/create-client", oh.CreateClient)
+	group.Post("/oauth2/create-client", oh.CreateClient)
 }
 
 func (oh *Oauth2ClientHandler) CreateClient(c *fiber.Ctx) error {
