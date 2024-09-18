@@ -1,8 +1,10 @@
 package server
 
 import (
+	"os"
 	"regexp"
 
+	"github.com/debidarmawan/debozero-core/docs"
 	"github.com/debidarmawan/debozero-core/handler"
 	"github.com/debidarmawan/debozero-core/helper"
 	"github.com/debidarmawan/debozero-core/repository"
@@ -10,10 +12,12 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	fiberSwagger "github.com/swaggo/fiber-swagger"
 	"gorm.io/gorm"
 )
 
 func Routes(f *fiber.App, db *gorm.DB) {
+
 	f.Use(cors.New())
 	f.Use(cors.New(cors.Config{
 		AllowOriginsFunc: func(origin string) bool {
@@ -22,6 +26,12 @@ func Routes(f *fiber.App, db *gorm.DB) {
 	}))
 
 	baseRoute := "/api/v1"
+
+	docs.SwaggerInfo.BasePath = baseRoute
+
+	if os.Getenv("GO_ENV") == "development" {
+		f.Get("/swagger/*", fiberSwagger.WrapHandler)
+	}
 
 	routerGroup := f.Group(baseRoute)
 

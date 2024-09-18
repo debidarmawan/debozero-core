@@ -9,6 +9,20 @@ import (
 	"github.com/debidarmawan/debozero-core/server"
 )
 
+//	@title			DeboZero Core Service
+//	@version		1.0
+//	@description	This is an API documentation of DeboZero Core Backend Service
+//	@contact.name	DeboZero Tech Team
+//	@contact.url
+//	@contact.email	debidarmawan1998@gmail.com
+
+//	@securityDefinitions.apiKey	Bearer
+//	@in							header
+//	@name						Authorization
+
+// @securityDefinitions.apikey	ApiKeyAuth
+// @in							header
+// @name						X-API-KEY
 func main() {
 	config.Init()
 

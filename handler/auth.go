@@ -26,6 +26,15 @@ func (ah *AuthHandler) Routes(group fiber.Router) {
 	group.Post("/auth/refresh", ah.Refresh)
 }
 
+// Login godoc
+//
+//	@Summary	Login to get access token
+//	@Tags		Auth
+//	@Accept		json
+//	@Produce	json
+//	@Param		payload	body		dto.Login	true	"Login data"
+//	@Success	200		{object}	global.Response[dto.LoginResponse]
+//	@Router		/auth/login [post]
 func (ah *AuthHandler) Login(c *fiber.Ctx) error {
 	var request dto.Login
 
@@ -41,6 +50,15 @@ func (ah *AuthHandler) Login(c *fiber.Ctx) error {
 	return global.CreateResponse(result, fiber.StatusOK, c)
 }
 
+// Logout godoc
+//
+//	@Summary	Remove/Invalidate an access token
+//	@Tags		Auth
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	global.Response[dto.Message]
+//	@Security	Bearer
+//	@Router		/auth/logout [post]
 func (ah *AuthHandler) Logout(c *fiber.Ctx) error {
 	var request http.Request
 
@@ -54,6 +72,17 @@ func (ah *AuthHandler) Logout(c *fiber.Ctx) error {
 	return global.MessageResponse("Success", fiber.StatusOK, c)
 }
 
+// Verify godoc
+//
+//	@Summary	Verify an access token to get the user id
+//	@Tags		Auth
+//	@Accept		json
+//	@Produce	json
+//	@Param		X-Path		header		string	true	"Path"
+//	@Param		X-Method	header		string	true	"Method"
+//	@Success	200			{object}	global.Response[dto.VerifyResponse]
+//	@Security	Bearer
+//	@Router		/auth/verify [get]
 func (ah *AuthHandler) Verify(c *fiber.Ctx) error {
 	// var header dto.VerifyHeader
 
@@ -79,6 +108,15 @@ func (ah *AuthHandler) Verify(c *fiber.Ctx) error {
 	return global.CreateResponse(result, fiber.StatusOK, c)
 }
 
+// Refresh godoc
+//
+//	@Summary	Refresh an access token (get a new one)
+//	@Tags		Auth
+//	@Accept		json
+//	@Produce	json
+//	@Param		payload	body		dto.RefreshTokenRequest	true	"User data"
+//	@Success	200		{object}	global.Response[dto.RefreshTokenResponse]
+//	@Router		/auth/refresh [post]
 func (ah *AuthHandler) Refresh(c *fiber.Ctx) error {
 	var body dto.RefreshTokenRequest
 	if err := helper.ValidateBody(c, &body); err != nil {

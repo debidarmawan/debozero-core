@@ -20,6 +20,15 @@ func (uh *UserHandler) Routes(group fiber.Router) {
 	group.Post("/users/register", uh.Register)
 }
 
+// Register godoc
+//
+//	@Summary	Create an account
+//	@Tags		User
+//	@Accept		json
+//	@Produce	json
+//	@Param		payload	body		dto.UserRegisterRequest	true	"User data"
+//	@Success	200		{object}	global.Response[dto.Message]
+//	@Router		/users/register [post]
 func (uh *UserHandler) Register(c *fiber.Ctx) error {
 	var request dto.UserRegisterRequest
 

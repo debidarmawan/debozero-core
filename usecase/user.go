@@ -43,7 +43,7 @@ func (uu *userUseCase) Register(request dto.UserRegisterRequest) (*model.User, g
 		Password: *hashedPassword,
 		Phone:    request.Phone,
 		IsActive: true,
-		RoleId:   "9a428ae5-fade-4605-ac3d-41c324455861",
+		RoleId:   "115ddcca-75ea-11ef-bee7-7e8696d84d16",
 	}
 
 	user, err = uu.userRepo.CreateUser(tx, user)

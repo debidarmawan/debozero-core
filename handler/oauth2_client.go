@@ -19,9 +19,19 @@ func NewOauth2Handler(oauth2UseCase usecase.Oauth2UseCase) *Oauth2ClientHandler 
 }
 
 func (oh *Oauth2ClientHandler) Routes(group fiber.Router) {
-	group.Post("/oauth2/create-client", oh.CreateClient)
+	group.Post("/oauth2/client", oh.CreateClient)
 }
 
+// Oauth2Client godoc
+//
+//	@Summary		Create Oauth2 Client
+//	@Description	Create Oauth2 Client
+//	@Tags			Oauth2 Client
+//	@Accept			json
+//	@Produce		json
+//	@Param			payload	body		dto.Oauth2Client	true	"Oauth2 Client data"
+//	@Success		200		{object}	global.Response[dto.Oauth2ClientResponse]
+//	@Router			/oauth2/client [post]
 func (oh *Oauth2ClientHandler) CreateClient(c *fiber.Ctx) error {
 	var request dto.Oauth2Client
 
