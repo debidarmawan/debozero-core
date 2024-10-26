@@ -284,8 +284,6 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/global.Response-dto_Oauth2ClientResponse'
-      security:
-      - Bearer: []
       summary: Create Oauth2 Client
       tags:
       - Oauth2 Client

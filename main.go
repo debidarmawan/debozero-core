@@ -4,9 +4,9 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/debidarmawan/debozero-core/config"
-	"github.com/debidarmawan/debozero-core/constants"
-	"github.com/debidarmawan/debozero-core/server"
+	"debozero-core/config"
+	"debozero-core/constants"
+	"debozero-core/server"
 )
 
 //	@title			DeboZero Core Service

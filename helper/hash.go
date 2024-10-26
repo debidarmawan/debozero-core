@@ -5,7 +5,8 @@ import (
 	"encoding/hex"
 	"strings"
 
-	"github.com/debidarmawan/debozero-core/constants"
+	"debozero-core/constants"
+
 	"golang.org/x/crypto/bcrypt"
 )
 

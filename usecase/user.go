@@ -1,11 +1,11 @@
 package usecase
 
 import (
-	"github.com/debidarmawan/debozero-core/dto"
-	"github.com/debidarmawan/debozero-core/global"
-	"github.com/debidarmawan/debozero-core/helper"
-	"github.com/debidarmawan/debozero-core/model"
-	"github.com/debidarmawan/debozero-core/repository"
+	"debozero-core/dto"
+	"debozero-core/global"
+	"debozero-core/helper"
+	"debozero-core/model"
+	"debozero-core/repository"
 )
 
 type UserUseCase interface {

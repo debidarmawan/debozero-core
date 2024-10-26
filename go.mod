@@ -1,6 +1,6 @@
-module github.com/debidarmawan/debozero-core
+module debozero-core
 
-go 1.22.5
+go 1.23.2
 
 require (
 	github.com/go-oauth2/mysql/v4 v4.1.0
@@ -11,9 +11,9 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/swaggo/fiber-swagger v1.3.0
-	github.com/swaggo/swag v1.16.3
-	github.com/valyala/fasthttp v1.55.0
-	golang.org/x/crypto v0.27.0
+	github.com/swaggo/swag v1.16.4
+	github.com/valyala/fasthttp v1.56.0
+	golang.org/x/crypto v0.28.0
 	gopkg.in/gorp.v2 v2.2.0
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.25.12
@@ -48,8 +48,8 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	golang.org/x/net v0.29.0 // indirect
-	golang.org/x/sys v0.25.0 // indirect
-	golang.org/x/text v0.18.0 // indirect
+	golang.org/x/sys v0.26.0 // indirect
+	golang.org/x/text v0.19.0 // indirect
 	golang.org/x/tools v0.25.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

@@ -3,7 +3,8 @@ package config
 import (
 	"log"
 
-	"github.com/debidarmawan/debozero-core/constants"
+	"debozero-core/constants"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

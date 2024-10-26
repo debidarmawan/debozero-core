@@ -156,11 +156,6 @@ const docTemplate = `{
         },
         "/oauth2/client": {
             "post": {
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
                 "description": "Create Oauth2 Client",
                 "consumes": [
                     "application/json"

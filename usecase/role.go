@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/debidarmawan/debozero-core/repository"
+	"debozero-core/repository"
 )
 
 type RoleUseCase interface {

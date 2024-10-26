@@ -4,7 +4,8 @@ import (
 	"log"
 	"runtime/debug"
 
-	"github.com/debidarmawan/debozero-core/global"
+	"debozero-core/global"
+
 	"github.com/gofiber/fiber/v2"
 )
 

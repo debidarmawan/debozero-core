@@ -3,7 +3,8 @@ package config
 import (
 	"log"
 
-	"github.com/debidarmawan/debozero-core/model"
+	"debozero-core/model"
+
 	"gorm.io/gorm"
 )
 

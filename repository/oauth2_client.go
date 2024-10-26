@@ -3,8 +3,9 @@ package repository
 import (
 	"context"
 
-	"github.com/debidarmawan/debozero-core/global"
-	"github.com/debidarmawan/debozero-core/model"
+	"debozero-core/global"
+	"debozero-core/model"
+
 	"github.com/go-oauth2/oauth2/v4"
 	"github.com/go-oauth2/oauth2/v4/models"
 	"gorm.io/gorm"

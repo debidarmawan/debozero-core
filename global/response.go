@@ -1,7 +1,8 @@
 package global
 
 import (
-	"github.com/debidarmawan/debozero-core/dto"
+	"debozero-core/dto"
+
 	"github.com/gofiber/fiber/v2"
 )
 

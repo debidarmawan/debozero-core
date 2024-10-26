@@ -1,9 +1,10 @@
 package repository
 
 import (
-	"github.com/debidarmawan/debozero-core/global"
-	"github.com/debidarmawan/debozero-core/helper"
-	"github.com/debidarmawan/debozero-core/model"
+	"debozero-core/global"
+	"debozero-core/helper"
+	"debozero-core/model"
+
 	"gorm.io/gorm"
 )
 

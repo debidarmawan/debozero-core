@@ -4,11 +4,12 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/debidarmawan/debozero-core/docs"
-	"github.com/debidarmawan/debozero-core/handler"
-	"github.com/debidarmawan/debozero-core/helper"
-	"github.com/debidarmawan/debozero-core/repository"
-	"github.com/debidarmawan/debozero-core/usecase"
+	"debozero-core/docs"
+	"debozero-core/handler"
+	"debozero-core/helper"
+	"debozero-core/repository"
+	"debozero-core/usecase"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"

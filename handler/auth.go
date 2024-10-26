@@ -3,10 +3,11 @@ package handler
 import (
 	"net/http"
 
-	"github.com/debidarmawan/debozero-core/dto"
-	"github.com/debidarmawan/debozero-core/global"
-	"github.com/debidarmawan/debozero-core/helper"
-	"github.com/debidarmawan/debozero-core/usecase"
+	"debozero-core/dto"
+	"debozero-core/global"
+	"debozero-core/helper"
+	"debozero-core/usecase"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/valyala/fasthttp/fasthttpadaptor"
 )

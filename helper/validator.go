@@ -1,8 +1,9 @@
 package helper
 
 import (
-	"github.com/debidarmawan/debozero-core/dto"
-	"github.com/debidarmawan/debozero-core/global"
+	"debozero-core/dto"
+	"debozero-core/global"
+
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )

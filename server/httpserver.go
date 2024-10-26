@@ -6,7 +6,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/debidarmawan/debozero-core/constants"
+	"debozero-core/constants"
+
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
