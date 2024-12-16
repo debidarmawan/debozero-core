@@ -41,7 +41,6 @@ func (uu *userUseCase) Register(request dto.UserRegisterRequest) (*model.User, g
 		Username: request.Username,
 		Email:    request.Email,
 		Password: *hashedPassword,
-		Phone:    request.Phone,
 		IsActive: true,
 		RoleId:   "115ddcca-75ea-11ef-bee7-7e8696d84d16",
 	}
@@ -94,7 +93,7 @@ func (uu *userUseCase) validateUserRegistrationData(request dto.UserRegisterRequ
 	hashedPassword := helper.HashPassword(request.Password)
 
 	if len(errMessages) > 0 {
-		return nil, nil
+		return nil, global.BadRequestErrorWithData("Validation Failed", errMessages)
 	}
 
 	return &hashedPassword, nil
